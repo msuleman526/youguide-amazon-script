@@ -1,0 +1,17 @@
+[Unit]
+Description=YouGuide Amazon SP-API <-> Google Sheet sync
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=youguide
+WorkingDirectory=/opt/youguide
+ExecStart=/opt/youguide/venv/bin/python -u /opt/youguide/upload_listings.py
+Restart=always
+RestartSec=30
+# Unbuffered output so logs reach journald in real time (no minutes-late chunks).
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
